@@ -16,7 +16,7 @@ public class BlogController {
 
     @GetMapping("/")
     public String home(){
-        return "home";
+        return "index";
     }
 
 

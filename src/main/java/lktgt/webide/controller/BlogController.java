@@ -16,8 +16,12 @@ public class BlogController {
 
     @GetMapping("/")
     public String home(){
-        return "index";
+        return "pages/index";
     }
 
+    @GetMapping("/IDE")
+    public String webIDE(){
+        return "pages/webIDE";
+    }
 
 }

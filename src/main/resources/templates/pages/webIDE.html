@@ -1,0 +1,45 @@
+<!-- ---------------------------------------- [head] ---------------------------------------- -->
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main_layout">
+<head>
+    <title>lktgt private blog</title>
+    <th:block th:insert="fragments/layout.html :: th-header"></th:block>
+</head>
+<!-- ---------------------------------------------------------------------------------------- -->
+<body>
+<th:block th:insert="fragments/layout.html :: th-navbar"></th:block>
+<form>
+    <div class="form-group">
+        <label for="exampleFormControlInput1">Email address</label>
+        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlSelect1">Example select</label>
+        <select class="form-control" id="exampleFormControlSelect1">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlSelect2">Example multiple select</label>
+        <select multiple class="form-control" id="exampleFormControlSelect2">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Example textarea</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    </div>
+</form>
+<!-- ---------------------------------------- [edit] ---------------------------------------- -->
+<th:block th:insert="fragments/layout.html :: th-footer"></th:block>
+</body>
+</html>
+<!-- ---------------------------------------------------------------------------------------- -->

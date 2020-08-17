@@ -1,0 +1,38 @@
+<!-- ---------------------------------------- [head] ---------------------------------------- -->
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main_layout">
+<head>
+    <title>lktgt private blog</title>
+    <th:block th:insert="fragments/layout.html :: th-header"></th:block>
+</head>
+<!-- ---------------------------------------------------------------------------------------- -->
+<body>
+    <th:block th:insert="fragments/layout.html :: th-navbar"></th:block>
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <div class="card">
+                    <img src="/images/coding.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Web IDE</h5>
+                        <p class="card-text">Web에서 코딩하자.</p>
+                        <a href="/IDE" class="btn btn-primary">사용하기</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+        </div>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+            <div class="col-3"></div>
+        </div>
+    </div>
+<!-- ---------------------------------------- [edit] ---------------------------------------- -->
+    <th:block th:insert="fragments/layout.html :: th-footer"></th:block>
+</body>
+</html>
+<!-- ---------------------------------------------------------------------------------------- -->

@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -17,7 +20,7 @@ class JpaUserRepositoryTest {
     @Autowired JpaUserRepository jpaUserRepository;
 
     @Test
-    void save() {
+    void 회원가입() {
         User user1 = new User();
         user1.setName("User1");
 
@@ -28,17 +31,23 @@ class JpaUserRepositoryTest {
     }
 
     @Test
-    void findById() {
+    void 중복회원예외() {
+        User user1 = new User();
+        user1.setName("User");
 
+        User user2 = new User();
+        user2.setName("User");
+
+        String result = userService.join(user1);
+        assertThat(result).isEqualTo("등록되었습니다.");
+        String result2 = userService.join(user2);
+        assertThat(result2).isEqualTo("이미 존재하는 회원입니다.");
+
+        List<User> all = jpaUserRepository.findAll();
+        for(User u: all){
+            System.out.println(u.getId());
+            System.out.println(u.getName());
+        }
     }
 
-    @Test
-    void findByName() {
-
-    }
-
-    @Test
-    void findAll() {
-
-    }
 }

@@ -5,29 +5,37 @@
     <title>lktgt private blog</title>
     <th:block th:insert="fragments/layout.html :: th-header"></th:block>
 </head>
-<!-- ---------------------------------------------------------------------------------------- -->
 <body>
 <th:block th:insert="fragments/layout.html :: th-navbar"></th:block>
-<form>
-    <div class="form-group">
-        <label for="exampleFormControlInput1">Email address</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-    </div>
-    <div class="form-group">
-        <label for="exampleFormControlSelect1">Language</label>
-        <select class="form-control" id="exampleFormControlSelect1">
-            <option>C++ 17</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="exampleFormControlTextarea1">Code</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="20"></textarea>
-    </div>
-</form>
+<!-- ---------------------------------------------------------------------------------------- -->
+
+<div class="container">
+    <form action="/IDE" method="post">
+        <div class="row">
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="language">Language</label>
+                    <select class="form-control" id="language" name="language">
+                        <option>C++ 17</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-10">
+                <div class="form-group">
+                    <label for="code">Code</label>
+                    <textarea class="form-control" id="code" rows="20" name="code"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
 <!-- ---------------------------------------- [edit] ---------------------------------------- -->
 <th:block th:insert="fragments/layout.html :: th-footer"></th:block>
 </body>

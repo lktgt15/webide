@@ -1,3 +1,4 @@
+
 <!-- ---------------------------------------- [head] ---------------------------------------- -->
 <!DOCTYPE html>
 <html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main_layout">
@@ -9,7 +10,15 @@
 <th:block th:insert="fragments/layout.html :: th-navbar"></th:block>
 <!-- ---------------------------------------- [edit] ---------------------------------------- -->
 
-
+<div class="container">
+    <form action="/user/new" method="post">
+        <div class="form-group">
+            <label for="name">이름</label>
+            <input type="text" id="name" name="name" placeholder="이름을 입력하세요">
+        </div>
+        <button type="submit">등록</button>
+    </form>
+</div> <!-- /container -->
 
 
 

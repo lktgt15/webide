@@ -26,8 +26,8 @@ public class UserService {
         boolean isDup = validateDuplicateUser(user);
 
         if(isDup == true) return "이미 존재하는 회원입니다.";
-        jpaUserRepository.save(user);
 
+        jpaUserRepository.save(user);
         return "등록되었습니다.";
     }
 

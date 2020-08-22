@@ -1,13 +1,23 @@
 package lktgt.webide.domain;
 
 public class UserForm {
-    private String name;
+    private String userName;
+    private String userPw;
 
-    public String getName() {
-        return name;
+
+    public String getUserName() {
+        return userName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserPw() {
+        return userPw;
+    }
+
+    public void setUserPw(String userPw) {
+        this.userPw = userPw;
     }
 }

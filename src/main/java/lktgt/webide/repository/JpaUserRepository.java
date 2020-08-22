@@ -1,6 +1,6 @@
 package lktgt.webide.repository;
 
-import lktgt.webide.domain.User;
+import lktgt.webide.domain.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,28 +21,28 @@ public class JpaUserRepository implements UserRepository {
     }
 
     @Override
-    public User save(User user) {
-        em.persist(user);
-        return user;
+    public Member save(Member member) {
+        em.persist(member);
+        return member;
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        User user = em.find(User.class, id);
-        return Optional.ofNullable(user);
+    public Optional<Member> findById(Long id) {
+        Member member = em.find(Member.class, id);
+        return Optional.ofNullable(member);
     }
 
     @Override
-    public Optional<User> findByName(String name) {
-        List<User> result = em.createQuery("select u from User u where u.name = :name", User.class)
+    public Optional<Member> findByName(String name) {
+        List<Member> result = em.createQuery("select u from Member u where u.name = :name", Member.class)
                 .setParameter("name", name)
                 .getResultList();
         return result.stream().findAny();
     }
 
     @Override
-    public List<User> findAll() {
-        return em.createQuery("select u from User u", User.class)
+    public List<Member> findAll() {
+        return em.createQuery("select u from Member u", Member.class)
                 .getResultList();
     }
 }

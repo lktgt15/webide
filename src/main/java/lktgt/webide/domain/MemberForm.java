@@ -1,6 +1,6 @@
 package lktgt.webide.domain;
 
-public class UserForm {
+public class MemberForm {
     private String userName;
     private String userPw;
 

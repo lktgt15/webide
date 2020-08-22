@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-public class User {
+public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -11,12 +11,12 @@ import java.util.Optional;
 
 @Transactional
 @Repository
-public class JpaUserRepository implements UserRepository {
+public class JpaMemberRepository implements UserRepository {
 
     private final EntityManager em;
 
     @Autowired
-    public JpaUserRepository(EntityManager em) {
+    public JpaMemberRepository(EntityManager em) {
         this.em = em;
     }
 

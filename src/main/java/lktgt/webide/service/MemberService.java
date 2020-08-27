@@ -1,20 +1,20 @@
 package lktgt.webide.service;
 
 import lktgt.webide.domain.Member;
-import lktgt.webide.repository.JpaUserRepository;
+import lktgt.webide.repository.JpaMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class MemberService {
 
-    private final JpaUserRepository jpaUserRepository;
+    private final JpaMemberRepository jpaMemberRepository;
 
     @Autowired
-    public UserService(JpaUserRepository jpaUserRepository) {
-        this.jpaUserRepository = jpaUserRepository;
+    public MemberService(JpaMemberRepository jpaMemberRepository) {
+        this.jpaMemberRepository = jpaMemberRepository;
     }
 
     /**
@@ -26,12 +26,12 @@ public class UserService {
 
         if(isDup == true) return "이미 존재하는 회원입니다.";
 
-        jpaUserRepository.save(member);
+        jpaMemberRepository.save(member);
         return "등록되었습니다.";
     }
 
     private boolean validateDuplicateUser(Member member){
-        Optional<Member> result = jpaUserRepository.findByName(member.getName());
+        Optional<Member> result = jpaMemberRepository.findByName(member.getName());
         if(result.isPresent()) return true;
         else return false;
     }

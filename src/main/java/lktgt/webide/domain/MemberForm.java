@@ -1,23 +1,24 @@
 package lktgt.webide.domain;
 
+import javax.validation.constraints.NotEmpty;
+
 public class MemberForm {
-    private String userName;
-    private String userPw;
+    private String name;
+    private String pw;
 
-
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getUserPw() {
-        return userPw;
+    public String getPw() {
+        return pw;
     }
 
-    public void setUserPw(String userPw) {
-        this.userPw = userPw;
+    public void setPw(String pw) {
+        this.pw = pw;
     }
 }

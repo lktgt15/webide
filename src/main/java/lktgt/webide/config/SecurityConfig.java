@@ -1,6 +1,6 @@
 package lktgt.webide.config;
 
-import lktgt.webide.service.CustomUserDetailsService;
+import lktgt.webide.service.MemberService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -15,10 +15,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final CustomUserDetailsService customUserDetailsService;
+    private final MemberService memberService;
 
-    public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
-        this.customUserDetailsService = customUserDetailsService;
+    public SecurityConfig(MemberService memberService) {
+        this.memberService = memberService;
     }
 
     @Bean
@@ -32,12 +32,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
             .antMatchers("/**").permitAll()
-            .anyRequest().permitAll();
+            .anyRequest().permitAll()
+        .and()
+            .formLogin()
+            .loginPage("/login")
+            .usernameParameter("name");
     }
     
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
     }
     
     @Override

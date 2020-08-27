@@ -1,23 +1,23 @@
 <!-- ---------------------------------------- [head] ---------------------------------------- -->
 <!DOCTYPE html>
-<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main_layout">
-<head>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"><head>
     <title>lktgt private blog</title>
     <th:block th:insert="fragments/layout.html :: th-header"></th:block>
 </head>
 <body>
+<th:block th:insert="fragments/layout.html :: th-login"></th:block>
 <th:block th:insert="fragments/layout.html :: th-navbar"></th:block>
 <!-- ---------------------------------------- [edit] ---------------------------------------- -->
 <div class="container">
     <form action="/login" method="post">
         <div class="form-group">
-            <label for="userName">Email address</label>
-            <input type="email" class="form-control" name="userName" id="userName" aria-describedby="emailHelp">
+            <label for="name">Email address</label>
+            <input type="email" class="form-control" name="name" id="name" aria-describedby="emailHelp">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
-            <label for="userPw">Password</label>
-            <input type="password" class="form-control" name="userPw" id="userPw">
+            <label for="pw">Password</label>
+            <input type="password" class="form-control" name="pw" id="pw">
         </div>
         <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">

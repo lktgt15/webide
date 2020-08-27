@@ -1,14 +1,23 @@
 package lktgt.webide.service;
 
+import lktgt.webide.config.Role;
 import lktgt.webide.domain.Member;
 import lktgt.webide.repository.JpaMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
-public class MemberService {
+public class MemberService implements UserDetailsService {
 
     private final JpaMemberRepository jpaMemberRepository;
 
@@ -34,5 +43,25 @@ public class MemberService {
         Optional<Member> result = jpaMemberRepository.findByName(member.getName());
         if(result.isPresent()) return true;
         else return false;
+    }
+
+
+    @Override
+    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+        System.out.println("name:" + name);
+        Optional<Member> userWrapper = jpaMemberRepository.findByName(name);
+        Member member = userWrapper.get();
+
+        System.out.println(member.getPw());
+        System.out.println(member.getName());
+
+        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+        if(name.equals("admin@lktgt.com")){
+            grantedAuthorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
+        }
+        else{
+            grantedAuthorities.add(new SimpleGrantedAuthority(Role.USER.getValue()));
+        }
+        return new User(member.getName(),member.getPw(),grantedAuthorities);
     }
 }

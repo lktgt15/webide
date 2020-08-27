@@ -7,6 +7,7 @@
     <th:block th:insert="fragments/layout.html :: th-header"></th:block>
 </head>
 <body>
+<th:block th:insert="fragments/layout.html :: th-login"></th:block>
 <th:block th:insert="fragments/layout.html :: th-navbar"></th:block>
 <!-- ---------------------------------------- [edit] ---------------------------------------- -->
 
@@ -15,12 +16,12 @@
     <form action="/member/new" method="post">
         <div class="form-group">
             <label for="name">Email address</label>
-            <input type="email" class="form-control" name="userName" id="name" aria-describedby="emailHelp">
+            <input type="email" class="form-control" name="name" id="name" aria-describedby="emailHelp">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
             <label for="pw">Password</label>
-            <input type="password" class="form-control" name="userPw" id="pw">
+            <input type="password" class="form-control" name="pw" id="pw" minlength="8">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>

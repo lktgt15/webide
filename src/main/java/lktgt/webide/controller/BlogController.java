@@ -53,10 +53,6 @@ public class BlogController {
 
     @PostMapping("/member/new")
     public String create(MemberForm memberForm){
-        if(memberForm.getPassword().isBlank()){
-            System.out.println("공백\n");
-            return "member/createMemberForm";
-        }
         Member member = new Member();
         member.setName(memberForm.getName());
         member.setPassword(passwordEncoder.encode(memberForm.getPassword() ) );
@@ -74,24 +70,5 @@ public class BlogController {
     public String loginPage(){
         return "pages/login";
     }
-
-//    @PostMapping("/login")
-//    public String login(MemberForm memberForm){
-//        log.info("id : {} , pw : {}", memberForm.getName(), memberForm.getPw());
-//        Optional<Member> user = jpaMemberRepository.findByName(memberForm.getName());
-//        System.out.println(memberForm.getName());
-//        if(user.isPresent()) {
-//            Member member = user.get();
-//            String storedPw = member.getPw();
-//            String memberPw = memberForm.getPw();
-//            System.out.println("멤버 이름 매칭 성공");
-//            if(passwordEncoder.matches(memberPw,storedPw)) {
-//                System.out.println("로그인 성공");
-//                return "redirect:/";
-//            }
-//        }
-//        System.out.println("로그인 실패");
-//        return "/login/loginFail";
-//    }
 
 }

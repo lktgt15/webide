@@ -52,7 +52,7 @@ public class MemberService implements UserDetailsService {
         Optional<Member> userWrapper = jpaMemberRepository.findByName(name);
         Member member = userWrapper.get();
 
-        System.out.println(member.getPw());
+        System.out.println(member.getPassword());
         System.out.println(member.getName());
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
@@ -62,6 +62,6 @@ public class MemberService implements UserDetailsService {
         else{
             grantedAuthorities.add(new SimpleGrantedAuthority(Role.USER.getValue()));
         }
-        return new User(member.getName(),member.getPw(),grantedAuthorities);
+        return new User(member.getName(),member.getPassword(),grantedAuthorities);
     }
 }

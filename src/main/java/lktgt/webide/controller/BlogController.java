@@ -53,19 +53,19 @@ public class BlogController {
 
     @PostMapping("/member/new")
     public String create(MemberForm memberForm){
-        if(memberForm.getPw().isBlank()){
+        if(memberForm.getPassword().isBlank()){
             System.out.println("공백\n");
             return "member/createMemberForm";
         }
         Member member = new Member();
         member.setName(memberForm.getName());
-        member.setPw(passwordEncoder.encode(memberForm.getPw() ) );
+        member.setPassword(passwordEncoder.encode(memberForm.getPassword() ) );
 
         String result = memberService.join(member);
         if(result.equals("이미 존재하는 회원입니다.")) {
             return "/login/loginFail";
         }
-        log.info("id : {} , pw : {} register",member.getName(),member.getPw());
+        log.info("id : {} , pw : {} register",member.getName(),member.getPassword());
 
         return "redirect:/";
     }

@@ -13,7 +13,7 @@ public class Member {
     private Long id;
 
     @NotEmpty private String name;
-    @NotEmpty private String pw;
+    @NotEmpty private String password;
 
     public Long getId() {
         return id;
@@ -31,11 +31,11 @@ public class Member {
         this.name = name;
     }
 
-    public String getPw() {
-        return pw;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPw(String pw) {
-        this.pw = pw;
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -34,6 +34,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         else{
             grantedAuthorities.add(new SimpleGrantedAuthority(Role.USER.getValue()));
         }
-        return new User(member.getName(),member.getPw(),grantedAuthorities);
+        return new User(member.getName(),member.getPassword(),grantedAuthorities);
     }
 }

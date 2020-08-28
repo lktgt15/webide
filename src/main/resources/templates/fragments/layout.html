@@ -7,8 +7,16 @@
 </th:block>
 <th:block th:fragment="th-login">
     <ul>
-        <a sec:authorize="isAnonymous()" href="/login" class="btn btn-outline-dark" role="button" aria-pressed="true">Sign In</a>
-        <a sec:authorize="isAnonymous()" href="/member/new" class="btn btn-dark" role="button" aria-pressed="true">Sign Up</a>
+        <a sec:authorize="isAnonymous()" href="/login" class="btn btn-outline-dark" role="button" aria-pressed="true">로그인</a>
+        <a sec:authorize="isAnonymous()" href="/member/new" class="btn btn-dark" role="button" aria-pressed="true">회원 가입</a>
+        <a sec:authorize="isAuthenticated()">
+            <div class="form-group">
+                <form action="/logout" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <button type="submit" class="btn btn-dark">로그아웃</button>
+                </form>
+            </div>
+        </a>
         <h1 sec:authorize="isAuthenticated()" sec:authentication="name"></h1>
     </ul>
 </th:block>

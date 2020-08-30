@@ -1,12 +1,18 @@
 package lktgt.webide.repository;
 
 import lktgt.webide.domain.Code;
+import lktgt.webide.domain.Member;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
+@Repository
 public class JpaCodeRepository implements CodeRepository{
 
     private final EntityManager em;
@@ -19,7 +25,7 @@ public class JpaCodeRepository implements CodeRepository{
     @Override
     public Code save(Code code) {
         em.persist(code);
-        return null;
+        return code;
     }
 
     @Override
@@ -28,7 +34,10 @@ public class JpaCodeRepository implements CodeRepository{
     }
 
     @Override
-    public List<Code> findAll() {
+    public Optional<List<Code>> findAll(String username) {
+        List<Code> resultList = em.createQuery("select * from Code c where c.username = :username", Code.class)
+                .setParameter("username",username)
+                .getResultList();
         return null;
     }
 }

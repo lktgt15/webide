@@ -11,5 +11,5 @@ public interface CodeRepository {
 
     Code save(Code code);
     Optional<Code> findById(Long id);
-    List<Code> findAll();
+    Optional<List<Code>> findAll(String username);
 }

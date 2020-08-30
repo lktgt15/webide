@@ -31,20 +31,13 @@ public class MemberService implements UserDetailsService {
      */
 
     public String join(Member member){
-        boolean isDup = validateDuplicateUser(member);
+        Optional<Member> result = jpaMemberRepository.findByName(member.getName());
 
-        if(isDup == true) return "이미 존재하는 회원입니다.";
+        if(result.isPresent()) return "이미 존재하는 회원입니다.";
 
         jpaMemberRepository.save(member);
         return "등록되었습니다.";
     }
-
-    private boolean validateDuplicateUser(Member member){
-        Optional<Member> result = jpaMemberRepository.findByName(member.getName());
-        if(result.isPresent()) return true;
-        else return false;
-    }
-
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {

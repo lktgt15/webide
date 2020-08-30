@@ -23,7 +23,12 @@
 - 로그아웃
   - 완성 : 로그아웃
 
+- IDE
+  - 처리 :
+    - 서버에 코드 post : 회원가입 때와 같이 @Postmapping으로 가져오는데, 추가로 Spring Security의 Principal을 이용하여 
+    로그인한 username까지 알아온다. Code는 username과 함께 DB에 저장된다.  
+    
 #----------------------
 - Todo:
-  - IDE 입력 출력 어떻게 할것인지?
-    - apache commons-io 생각중
+  - IDE 
+    - 

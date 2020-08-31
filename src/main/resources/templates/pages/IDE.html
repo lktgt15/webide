@@ -16,33 +16,36 @@
 <!-- ---------------------------------------- [edit] ---------------------------------------- -->
 
 
-<div class="container">
-    <form action="/IDE" method="post">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <div class="row">
-            <div class="col-3">
-                <div class="form-group">
-                    <label for="language">Language</label>
-                    <select class="form-control" id="language" name="language">
-                        <option>C++ 17</option>
-                    </select>
+<div class="row">
+    <div class="container">
+        <form action="/IDE" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-group">
+                        <label for="language">Language</label>
+                        <select class="form-control" id="language" name="language">
+                            <option>C++ 17</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-10">
-                <div class="form-group">
-                    <label for="code">Code</label>
-                    <textarea class="form-control" id="code" rows="20" name="code"></textarea>
+            <div class="row">
+                <div class="col-10">
+                    <div class="form-group">
+                        <label for="code">Code</label>
+                        <textarea class="form-control" id="code" rows="20" name="code"></textarea>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
+
 </div>
 
 

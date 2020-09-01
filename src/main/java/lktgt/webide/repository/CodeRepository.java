@@ -10,6 +10,5 @@ import java.util.Optional;
 public interface CodeRepository {
 
     Code save(Code code);
-    Optional<Code> findById(Long id);
-    Optional<List<Code>> findAll(String username);
+    List<Code> findByName(String username);
 }

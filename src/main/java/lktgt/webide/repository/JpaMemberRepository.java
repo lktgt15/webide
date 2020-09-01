@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Transactional
 @Repository
-public class JpaMemberRepository implements UserRepository {
+public class JpaMemberRepository implements MemberRepository {
 
     private final EntityManager em;
 

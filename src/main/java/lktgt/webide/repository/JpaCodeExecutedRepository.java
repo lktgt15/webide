@@ -1,38 +1,35 @@
 package lktgt.webide.repository;
 
-import lktgt.webide.domain.Code;
 import lktgt.webide.domain.CodeExecuted;
-import lktgt.webide.domain.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import java.util.List;
-import java.util.Optional;
 
 @Transactional
 @Repository
-public class JpaCodeRepository implements CodeRepository{
+public class JpaCodeExecutedRepository implements CodeExecutedRepository {
 
     private final EntityManager em;
 
     @Autowired
-    public JpaCodeRepository(EntityManager em) {
+    public JpaCodeExecutedRepository(EntityManager em) {
         this.em = em;
     }
 
     @Override
-    public Code save(Code code) {
-        em.persist(code);
-        return code;
+    public CodeExecuted save(CodeExecuted codeExecuted) {
+        em.persist(codeExecuted);
+        return codeExecuted;
     }
 
     @Override
-    public List<Code> findByName(String name) {
-        return em.createQuery("select c from Code c where c.name = :name", Code.class)
+    public List<CodeExecuted> findByName(String name) {
+        return em.createQuery("select ce from CodeExecuted ce where ce.name = :name", CodeExecuted.class)
                 .setParameter("name",name)
                 .getResultList();
     }
+
 }

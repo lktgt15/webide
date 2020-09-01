@@ -27,8 +27,42 @@
   - 처리 :
     - 서버에 코드 post : 회원가입 때와 같이 @Postmapping으로 가져오는데, 추가로 Spring Security의 Principal을 이용하여 
     로그인한 username까지 알아온다. Code는 username과 함께 DB에 저장된다.  
+    - 파일로 저장 : code를 DB에 저장하고 IDEService의 exec를 실행한다. 여기서 "classpath:static/code/Main.cc"파일에 방금 받은 코드 내용을 쓴다. 
+        ```java
+        File file = ResourceUtils.getFile("classpath:static/code/Main.cc")
+        String path = file.getPath();
+        ```
+      을 이용하여 내 Local에서 파일의 절대경로를 가져올 수 있다. 이렇게 얻은 Path로 
+      ```java
+      BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
+      bufferedWriter.write(beforeCode);
+      bufferedWriter.close();
+      ```
+      BufferedWriter를 이용하여 file에 code내용을 쓴다. Filewriter로도 바로 string을 file에 쓸 수 있지만, BufferedWriter를 사용하면
+      Buffer를 이용하여 CPU 사용 횟수와 메모리 접근 횟수를 줄여 성능을 높인다.  
+      
+    - cmd로 컴파일 :
+      ```java
+      Runtime runtime = Runtime.getRuntime();
+      Process process = null;
+        
+      StringBuffer successoutput = new StringBuffer();
+      StringBuffer erroroutput = new StringBuffer();
+      BufferedReader successreader = null;
+      BufferedReader errorreader = null;
+      String msg = "";
+      ```
+      Runtime을 이용하여 JVM이 작동하는 운영체제의 인터페이스를 사용할 준비를 한다.  
+      사용할 process도 준비한다. BufferedReader로 process의 Inputstream과 Errorstream 을 읽을 준비를 한다.  
+      process.getInputStream()과 getErrorStream()에서 BufferedReader로 받아온 것을 StringBuffer에 add할 것이다.  
+      
+      ```java
+      String[] array = cmdStringList("g++ "+path+" -o Main -O2 -Wall -lm -static -std=gnu++17");
+      ```
+      로 windows cmd 실행 + 컴파일 옵션을 설정하여 컴파일 할 수 있게 한다.  
+      
     
 #----------------------
 - Todo:
   - IDE 
-    - 
+    - 코드 컴파일,실행 결과 DB에서 가져와서 보여주기

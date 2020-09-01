@@ -19,8 +19,7 @@ public class BlogController {
 
 
     @GetMapping("/member/new")
-    public String createForm(){
-        return "member/createMemberForm";
+    public String createForm(){ return "member/createMemberForm";
     }
 
     @GetMapping("/login")

@@ -60,6 +60,7 @@
       String[] array = cmdStringList("g++ "+path+" -o Main -O2 -Wall -lm -static -std=gnu++17");
       ```
       로 windows cmd 실행 + 컴파일 옵션을 설정하여 컴파일 할 수 있게 한다.  
+  - 완성 : Code 컴파일, 실행, 결과 DB에 저장
       
     
 #----------------------

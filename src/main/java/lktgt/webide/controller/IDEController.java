@@ -5,10 +5,13 @@ import lktgt.webide.domain.CodeForm;
 import lktgt.webide.service.CodeService;
 import lktgt.webide.service.IDEService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class IDEController {
@@ -27,9 +30,15 @@ public class IDEController {
         code.setLanguage(codeForm.getLanguage());
         code.setName(principal.getName());
 
-        codeService.join(code);
         IDEService.exec(code);
 
         return "redirect:/";
+    }
+
+    @GetMapping("/IDE/codes") // 내 Code 보기
+    public String IDECodes(Principal principal, Model model){
+        List<Code> codeList = codeService.getCodeList(principal.getName());
+        model.addAttribute("codeList",codeList);
+        return "/IDE/codes";
     }
 }

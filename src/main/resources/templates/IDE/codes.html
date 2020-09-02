@@ -1,0 +1,40 @@
+<!-- ---------------------------------------- [head] ---------------------------------------- -->
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/main_layout">
+
+<head>
+    <title>lktgt private blog</title>
+    <th:block th:insert="fragments/layout.html :: th-header"></th:block>
+</head>
+<body>
+<th:block th:insert="fragments/layout.html :: th-login"></th:block>
+<th:block th:insert="fragments/layout.html :: th-navbar"></th:block>
+<!-- ---------------------------------------- [edit] ---------------------------------------- -->
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">언어</th>
+        <th scope="col">결과</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="code : ${codeList}">
+        <td th:text="${code.id}"></td>
+        <td th:text="${code.language}"></td>
+        <td th:text="${code.result}"></td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+<!-- ---------------------------------------- [edit] ---------------------------------------- -->
+<th:block th:insert="fragments/layout.html :: th-footer"></th:block>
+</body>
+</html>
+<!-- ---------------------------------------------------------------------------------------- -->

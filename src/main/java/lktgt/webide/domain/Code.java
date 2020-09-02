@@ -14,6 +14,7 @@ public class Code {
     private String code;
     private String language;
     private String name;
+    private String result;
 
     public String getCode() {
         return code;
@@ -45,5 +46,13 @@ public class Code {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
     }
 }

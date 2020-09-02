@@ -9,12 +9,12 @@ public class BlogController {
 
     @GetMapping("/")
     public String home(){
-        return "pages/index";
+        return "index";
     }
 
     @GetMapping("/IDE")
     public String IDE(){
-        return "pages/IDE";
+        return "IDE/IDEindex";
     }
 
 
@@ -24,7 +24,7 @@ public class BlogController {
 
     @GetMapping("/login")
     public String loginPage(){
-        return "pages/login";
+        return "login/loginindex";
     }
 
 }

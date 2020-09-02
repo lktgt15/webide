@@ -1,7 +1,6 @@
 package lktgt.webide.service;
 
 import lktgt.webide.domain.Code;
-import lktgt.webide.domain.CodeExecuted;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
@@ -14,15 +13,14 @@ import java.util.List;
 @Service
 public class IDEService {
 
-    private final CodeExecutedService codeExecutedService;
+    private final CodeService codeService;
 
-    public IDEService(CodeExecutedService codeExecutedService) {
-        this.codeExecutedService = codeExecutedService;
+    public IDEService(CodeService codeService) {
+        this.codeService = codeService;
     }
 
     @Async("threadPoolTaskExecutor")
     public void exec(Code code) throws IOException {
-        CodeExecuted codeExecuted = new CodeExecuted();
 
         File file = ResourceUtils.getFile("classpath:static/code/Main.cc");
         String path = file.getPath();
@@ -40,6 +38,8 @@ public class IDEService {
         BufferedReader successreader = null;
         BufferedReader errorreader = null;
         String msg = "";
+
+        boolean success = false;
 
         String[] array = cmdStringList("g++ "+path+" -o Main -O2 -Wall -lm -static -std=gnu++17");
 
@@ -60,8 +60,9 @@ public class IDEService {
             process.waitFor();
 
             if (process.exitValue() == 0) {
-                System.out.println("성공");
+                System.out.println("컴파일 성공");
                 System.out.println(successoutput.toString());
+                success = true;
             } else {
                 System.out.println("cmd 비정상 종료");
                 System.out.println(successoutput.toString());
@@ -70,6 +71,8 @@ public class IDEService {
             if (!(erroroutput.toString().isEmpty())) {
                 System.out.println("Error");
                 System.out.println(erroroutput.toString());
+                int idx = erroroutput.toString().indexOf("error");
+                code.setResult(erroroutput.toString().substring(idx));
             }
 
         } catch (InterruptedException e) {
@@ -87,6 +90,11 @@ public class IDEService {
                 e.printStackTrace();
             }
         }
+        if(success == false) {
+            codeService.join(code);
+            return;
+        }
+
         array = cmdStringList("Main.exe");
 
         try {
@@ -106,20 +114,20 @@ public class IDEService {
             process.waitFor();
 
             if (process.exitValue() == 0) {
-                System.out.println("성공");
+                System.out.println("실행 성공");
                 System.out.println(successoutput.toString());
-                codeExecuted.setResult(successoutput.toString());
+                code.setResult(successoutput.toString());
 
             } else {
                 System.out.println("cmd 비정상 종료");
                 System.out.println(successoutput.toString());
-                codeExecuted.setResult(successoutput.toString());
+                code.setResult(successoutput.toString());
             }
 
             if (!(erroroutput.toString().isEmpty())) {
                 System.out.println("Error");
                 System.out.println(erroroutput.toString());
-                codeExecuted.setResult(successoutput.toString());
+                code.setResult(successoutput.toString());
             }
 
         } catch (InterruptedException e) {
@@ -139,12 +147,7 @@ public class IDEService {
                 e.printStackTrace();
             }
         }
-
-        codeExecuted.setName(code.getName());
-        codeExecuted.setCodeId(code.getId());
-
-        codeExecutedService.join(codeExecuted);
-
+        codeService.join(code);
     }
 
     private String[] cmdStringList(String cmd){

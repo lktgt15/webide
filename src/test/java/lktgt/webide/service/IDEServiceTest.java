@@ -1,21 +1,14 @@
 package lktgt.webide.service;
 
-import javassist.ClassPath;
 import lktgt.webide.domain.Code;
-import lktgt.webide.domain.CodeExecuted;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.data.repository.init.ResourceReader;
 import org.springframework.util.ResourceUtils;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class IDEServiceTest {
 

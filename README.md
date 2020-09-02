@@ -60,10 +60,14 @@
       String[] array = cmdStringList("g++ "+path+" -o Main -O2 -Wall -lm -static -std=gnu++17");
       ```
       로 windows cmd 실행 + 컴파일 옵션을 설정하여 컴파일 할 수 있게 한다.  
-  - 완성 : Code 컴파일, 실행, 결과 DB에 저장
+    - 코드 실행 결과 보기 : 
+      기능의 내 코드를 누르면 DB에서 code table에서 username으로 검색하여 List를 반환하여 thymeleaf의 each를 이용하여 결과를 display한다.  
+      
+  - 완성 : Code 컴파일, 실행, 결과 DB에 저장, 코드 결과 보기
+  - 미완성 : 코드 Id 클릭시 상세 정보 보기
       
     
 #----------------------
 - Todo:
   - IDE 
-    - 코드 컴파일,실행 결과 DB에서 가져와서 보여주기
+    - 코드 상세정보 보기

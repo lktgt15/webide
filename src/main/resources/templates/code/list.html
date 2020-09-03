@@ -14,22 +14,26 @@
 <th:block th:insert="fragments/layout.html :: th-login"></th:block>
 <th:block th:insert="fragments/layout.html :: th-navbar"></th:block>
 <!-- ---------------------------------------- [edit] ---------------------------------------- -->
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">언어</th>
-        <th scope="col">결과</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="code : ${codeList}">
-        <td th:text="${code.id}"></td>
-        <td th:text="${code.language}"></td>
-        <td th:text="${code.result}"></td>
-    </tr>
-    </tbody>
-</table>
+<div class="container">
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">언어</th>
+            <th scope="col">결과</th>
+            <th scope="col">시간</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="code : ${codeList}">
+            <td><a th:href="'/code?id='+${code.id}"th:text="${code.id}"></a></td>
+            <td th:text="${code.language}"></td>
+            <td th:text="${code.result}"></td>
+            <td th:text="${code.time}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 
 
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -23,6 +24,11 @@ public class IDEController {
         this.codeService = codeService;
     }
 
+    @GetMapping("/IDE")
+    public String IDE(){
+        return "IDE/IDEindex";
+    }
+
     @PostMapping("/IDE") // Code를 받음
     public String IDESubmit(Principal principal, CodeForm codeForm) throws IOException {
         Code code = new Code();
@@ -35,10 +41,16 @@ public class IDEController {
         return "redirect:/";
     }
 
-    @GetMapping("/IDE/codes") // 내 Code 보기
+    @GetMapping("/code/list") // 내 Code 보기
     public String IDECodes(Principal principal, Model model){
         List<Code> codeList = codeService.getCodeList(principal.getName());
         model.addAttribute("codeList",codeList);
-        return "/IDE/codes";
+        return "code/list";
+    }
+
+    @GetMapping("/code")
+    public String code(@RequestParam(value="id") Long id, Model model){
+        model.addAttribute("code",codeService.findCodeById(id));
+        return "code/view";
     }
 }

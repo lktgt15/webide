@@ -1,9 +1,9 @@
 package lktgt.webide.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Code {
@@ -11,10 +11,18 @@ public class Code {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "time") @CreationTimestamp
+    private Date time;
+
+    @Column(length = 100000)
     private String code;
+
     private String language;
     private String name;
+
+    @Column(length = 100000)
     private String result;
+
 
     public String getCode() {
         return code;
@@ -54,5 +62,13 @@ public class Code {
 
     public void setResult(String result) {
         this.result = result;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
     }
 }

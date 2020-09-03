@@ -1,0 +1,39 @@
+<!-- ---------------------------------------- [head] ---------------------------------------- -->
+<!DOCTYPE html>
+<html lang="ko" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/main_layout">
+
+<head>
+    <title>lktgt private blog</title>
+    <th:block th:insert="fragments/layout.html :: th-header"></th:block>
+</head>
+<body>
+<th:block th:insert="fragments/layout.html :: th-login"></th:block>
+<th:block th:insert="fragments/layout.html :: th-navbar"></th:block>
+<!-- ---------------------------------------- [edit] ---------------------------------------- -->
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <p class="blockquote" th:text="${code.id}"></span>
+        </div>
+        <div class="col">
+            <p class="blockquote" th:text="${code.language}"></span>
+        </div>
+        <div class="col">
+            <p class="blockquote" th:text="${code.time}"></p>
+        </div>
+    </div>
+    <p class="blockquote">결과:</p>
+    <span th:text="${code.result}"></span>
+</div>
+
+
+
+<!-- ---------------------------------------- [edit] ---------------------------------------- -->
+<th:block th:insert="fragments/layout.html :: th-footer"></th:block>
+</body>
+</html>
+<!-- ---------------------------------------------------------------------------------------- -->

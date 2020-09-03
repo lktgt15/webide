@@ -12,11 +12,6 @@ public class BlogController {
         return "index";
     }
 
-    @GetMapping("/IDE")
-    public String IDE(){
-        return "IDE/IDEindex";
-    }
-
 
     @GetMapping("/member/new")
     public String createForm(){ return "member/createMemberForm";

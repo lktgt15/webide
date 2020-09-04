@@ -31,18 +31,24 @@ public class MemberService implements UserDetailsService {
      */
 
     public String join(Member member){
-        Optional<Member> result = jpaMemberRepository.findByName(member.getName());
-
-        if(result.isPresent()) return "이미 존재하는 회원입니다.";
-
+        validateDupMember(member);
         jpaMemberRepository.save(member);
         return "등록되었습니다.";
+    }
+
+    private void validateDupMember(Member member){
+        jpaMemberRepository.findByName(member.getName())
+                .ifPresent(m -> {
+                    throw new IllegalStateException("이미 존재하는 회원입니다.");
+                });
     }
 
     @Override
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
         Optional<Member> userWrapper = jpaMemberRepository.findByName(name);
-        Member member = userWrapper.get();
+        Member member = userWrapper.orElseThrow(()->
+                new UsernameNotFoundException(name)
+        );
 
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         if(name.equals("admin@lktgt.com")){

@@ -6,7 +6,49 @@
     - pw 암호화 : pw암호화는 Spring Security의 BCryptPasswordEncoder를 통해 Encode 후 DB에 저장하며 추후 로그인 확인할 때 
     pwencoder.match(raw,dbpw)를 통해 검증도 가능하다.  
     
-    - DB 저장 : Repository의 Spring JPA EntityManager가 연동된 DB에 Entity인 Member를 저장해준다.  
+    - DB 저장 : Repository의 Spring JPA EntityManager가 연동된 DB에 Entity인 Member를 저장해준다. 
+    
+    - 중복 확인 : 
+    회원가입 page에서 입력받은 form을 토대로 새로운 member를 생성해 name과 pw를 set하고 join을 시도한다.  
+    ```java
+    @PostMapping("/member/new")
+    public String create(Model model, MemberForm memberForm) {
+        Member member = new Member();
+        member.setName(memberForm.getName());
+        member.setPassword(passwordEncoder.encode(memberForm.getPassword()));
+
+        String result = memberService.join(member);
+        model.addAttribute("result",result);
+
+        return "redirect:/";
+    }
+    ``` 
+    join은 validateDupMember를 통해 member가 DB에 있는지 확인한다.  
+    ```java
+    public String join(Member member){
+        validateDupMember(member);
+        jpaMemberRepository.save(member);
+        return "등록되었습니다.";
+    }
+
+    private void validateDupMember(Member member){
+        jpaMemberRepository.findByName(member.getName())
+                .ifPresent(m -> {
+                    throw new IllegalStateException("이미 존재하는 회원입니다.");
+                });
+    }
+    ```
+    jpaMemberRepository의 findByName은 입력받은 name을 MySQL에 쿼리를 날려 일치하는 name을 가진 member를
+    Optional<Member>로 return하는 함수다. 이것을 ifPresent로 만약 NULL이 아니면 중복이므로 IllegalStateException으로 예외 처리를 해준다.  
+    ```java
+    @ExceptionHandler(IllegalStateException.class)
+    public String exceptionHandler(Model model,Exception e){
+        model.addAttribute("result",e.getMessage());
+        return "member/createMemberForm";
+    }
+    ```
+    예외 처리는 MemberController에서 `@ExceptionHandler`를 이용하여 model에 "이미 존재하는 회원입니다."라는 메세지를 담아서 view에 보여줄 수 있도록 한다.  
+    
   
   - 완성 : pw 암호화, id 중복 체크
 - 로그인
@@ -20,6 +62,7 @@
     
   - 완성 : DB에서 아이디 체크 , 권한 부여  
   - 미완성 : Remeber 체크박스
+  
 - 로그아웃
   - 완성 : 로그아웃
 
@@ -70,4 +113,4 @@
 #----------------------
 - Todo:
   - IDE 
-    - 코드 상세정보 보기
+    - 코드 truncate, 랜덤인풋 생성기

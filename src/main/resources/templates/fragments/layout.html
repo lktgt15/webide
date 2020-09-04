@@ -8,8 +8,8 @@
 
 <th:block th:fragment="th-login">
     <ul>
-        <a sec:authorize="isAnonymous()" href="/login" class="btn btn-outline-dark" role="button" aria-pressed="true">로그인</a>
-        <a sec:authorize="isAnonymous()" href="/member/new" class="btn btn-dark" role="button" aria-pressed="true">회원 가입</a>
+        <a sec:authorize="isAnonymous()" th:href="@{/login}" class="btn btn-outline-dark" role="button" aria-pressed="true">로그인</a>
+        <a sec:authorize="isAnonymous()" th:href="@{/member/new}" class="btn btn-dark" role="button" aria-pressed="true">회원 가입</a>
         <a sec:authorize="isAuthenticated()">
             <div class="form-group">
                 <form action="/logout" method="post">
@@ -30,17 +30,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         기능
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/">메인</a>
-                        <a class="dropdown-item" href="/IDE">IDE</a>
+                        <a class="dropdown-item" th:href="@{/}">메인</a>
+                        <a class="dropdown-item" th:href="@{/IDE}">IDE</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="/code/list">내 코드</a>
+                        <a class="dropdown-item" th:href="@{/code/list}">내 코드</a>
                     </div>
                 </li>
             </ul>

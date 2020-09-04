@@ -6,6 +6,7 @@ import lktgt.webide.service.MemberService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -25,13 +26,14 @@ public class MemberController {
         member.setPassword(passwordEncoder.encode(memberForm.getPassword()));
 
         String result = memberService.join(member);
-
-        if (result.equals("이미 존재하는 회원입니다.")) {
-            model.addAttribute("error", result);
-            return "member/createMemberForm";
-        }
+        model.addAttribute("result",result);
 
         return "redirect:/";
     }
 
+    @ExceptionHandler(IllegalStateException.class)
+    public String exceptionHandler(Model model,Exception e){
+        model.addAttribute("result",e.getMessage());
+        return "member/createMemberForm";
+    }
 }

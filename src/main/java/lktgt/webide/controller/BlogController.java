@@ -12,11 +12,6 @@ public class BlogController {
         return "index";
     }
 
-
-    @GetMapping("/member/new")
-    public String createForm(){ return "member/createMemberForm";
-    }
-
     @GetMapping("/login")
     public String loginPage(){
         return "login/loginindex";

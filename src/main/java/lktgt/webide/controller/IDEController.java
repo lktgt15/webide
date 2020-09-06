@@ -2,26 +2,26 @@ package lktgt.webide.controller;
 
 import lktgt.webide.domain.Code;
 import lktgt.webide.domain.CodeForm;
+import lktgt.webide.domain.RandomInputForm;
 import lktgt.webide.service.CodeService;
 import lktgt.webide.service.IDEService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class IDEController {
     private final IDEService IDEService;
-    private final CodeService codeService;
 
-    public IDEController(IDEService IDEService, CodeService codeService) {
+    public IDEController(IDEService IDEService) {
         this.IDEService = IDEService;
-        this.codeService = codeService;
     }
 
     @GetMapping("/IDE")
@@ -39,18 +39,5 @@ public class IDEController {
         IDEService.exec(code);
 
         return "redirect:/";
-    }
-
-    @GetMapping("/code/list") // 내 Code 보기
-    public String IDECodes(Principal principal, Model model){
-        List<Code> codeList = codeService.getCodeList(principal.getName());
-        model.addAttribute("codeList",codeList);
-        return "code/list";
-    }
-
-    @GetMapping("/code")
-    public String code(@RequestParam(value="id") Long id, Model model){
-        model.addAttribute("code",codeService.findCodeById(id));
-        return "code/view";
     }
 }

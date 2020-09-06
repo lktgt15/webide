@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
@@ -17,6 +18,10 @@ public class MemberController {
     public MemberController(PasswordEncoder passwordEncoder, MemberService memberService) {
         this.passwordEncoder = passwordEncoder;
         this.memberService = memberService;
+    }
+
+    @GetMapping("/member/new")
+    public String createForm(){ return "member/createMemberForm";
     }
 
     @PostMapping("/member/new")

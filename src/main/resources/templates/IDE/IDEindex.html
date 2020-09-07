@@ -43,30 +43,24 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </div>
-            <div class="row">
+            <div class="from-row">
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="test">Options</label>
                     </div>
                     <select class="custom-select" id="test" name="test">
-                        <option selected>Choose...</option>
-                        <option value="1">One</option>
+                        <option selected value="1">One</option>
                         <option value="2">Two</option>
-                        <option value="3">Three</option>
                     </select>
+                    <label for="test2">min</label>
+                    <input class="form-control" id="test2" name="test2">
+                    <label for="test3">max</label>
+                    <input class="form-control" id="test3" name="test3">
                 </div>
-                <a class="btn btn-outline-dark" href="#" onclick="addRandomInput()">추가</a>
-                <table class="table">
-                    <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">타입</th>
-                        <th scope="col">K</th>
-                    </tr>
-                    </thead>
-                    <tbody id="addedForms">
+                <a class="btn btn-outline-dark" id="addformbtn" name="addForm">추가</a>
+            </div>
+            <div id="addedForms">
 
-                    </tbody>
-                </table>
             </div>
         </form>
     </div>

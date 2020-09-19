@@ -1,20 +1,21 @@
 $('#addformbtn').on('click',function(){
-    // Number of inputs to create
-    var number = document.getElementById("test").value;
-    var minnum = document.getElementById("test2").value;
-    var maxnum = document.getElementById("test3").value;
-    // Container <div> where dynamic content will be placed
+    var rangeminv = document.getElementById("rangemin").value*1;
+    var rangemaxv = document.getElementById("rangemax").value*1;
+    var kminv = document.getElementById("kmin").value*1;
+    var kmaxv = document.getElementById("kmax").value*1;
+
     var container = document.getElementById("addedForms");
-    // Clear previous contents of the container
 
-    console.log(minnum);
-    console.log(maxnum);
+    console.log("rangemaxv"+rangemaxv+typeof(rangemaxv))
+    console.log("rangeminv"+rangeminv)
+    console.log("kminv"+kminv)
+    console.log("kmaxv"+kmaxv)
 
-    if(minnum == "" || maxnum == ""){
+    if(kminv === 0 || kmaxv === 0 || rangeminv === 0 || rangemaxv === 0){
         alert("모든 값을 채워주셔야 합니다");
         return;
     }
-    if(minnum > maxnum){
+    if(rangeminv > rangemaxv || kminv > kmaxv){
         alert("min값보다 max값이 크면 안됩니다");
         return;
     }
@@ -28,34 +29,49 @@ $('#addformbtn').on('click',function(){
     coldiv2.className="list-group-item"
     var coldiv3 = document.createElement("div");
     coldiv3.className="list-group-item"
+    var coldiv4 = document.createElement("div");
+    coldiv4.className="list-group-item"
 
-    var k = document.createElement("input");
-    k.name = "k"
-    k.className = "form-control-plaintext"
-    k.readOnly = true
-    k.value = number
-    coldiv1.appendChild(k)
+    var kmin = document.createElement("input");
+    kmin.name = "kmin"
+    kmin.className = "form-control-plaintext"
+    kmin.readOnly = true
+    kmin.value = kminv
+    coldiv1.appendChild(kmin)
 
-    var min = document.createElement("input");
-    min.name = "min"
-    min.className = "form-control-plaintext"
-    min.readOnly = true
-    min.value = minnum
-    coldiv2.appendChild(min)
+    var kmax = document.createElement("input");
+    kmax.name = "kmax"
+    kmax.className = "form-control-plaintext"
+    kmax.readOnly = true
+    kmax.value = kmaxv
+    coldiv2.appendChild(kmax)
 
-    var max = document.createElement("input");
-    max.name = "max"
-    max.className = "form-control-plaintext"
-    max.readOnly = true
-    max.value = maxnum
-    coldiv3.appendChild(max)
+    var rangemin = document.createElement("input");
+    rangemin.name = "rangemin"
+    rangemin.className = "form-control-plaintext"
+    rangemin.readOnly = true
+    rangemin.value = rangeminv
+    coldiv3.appendChild(rangemin)
+
+    var rangemax = document.createElement("input");
+    rangemax.name = "rangemax"
+    rangemax.className = "form-control-plaintext"
+    rangemax.readOnly = true
+    rangemax.value = rangemaxv
+    coldiv4.appendChild(rangemax)
+
+
+
     div.appendChild(coldiv1)
     div.appendChild(coldiv2)
     div.appendChild(coldiv3)
+    div.appendChild(coldiv4)
     container.appendChild(div)
 
-    document.getElementById("test3").value=null;
-    document.getElementById("test2").value=null;
+    document.getElementById("kmin").value=null;
+    document.getElementById("kmax").value=null;
+    document.getElementById("rangemin").value=null;
+    document.getElementById("rangemax").value=null;
 
     container.appendChild(document.createElement("br"));
 })

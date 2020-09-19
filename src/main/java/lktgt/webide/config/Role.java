@@ -1,8 +1,5 @@
 package lktgt.webide.config;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 public enum Role {
     USER("ROLE_USER"),
     ADMIN("ROLE_ADMIN");

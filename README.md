@@ -106,6 +106,7 @@
     - 코드 실행 결과 보기 : 
       기능의 내 코드를 누르면 DB에서 code table에서 username으로 검색하여 List를 반환하여 thymeleaf의 each를 이용하여 결과를 display한다.  
     - 랜덤인풋 생성기 :  
+      `IDEController`의 IDESubmit에서 Codeform으로 input값들을 받아온다. html상에서 같은 name을 가지고 있다면 Codeform의 List로 모두 들어가게 된다.
       
   - 완성 : Code 컴파일, 실행, 결과 DB에 저장, 코드 결과 보기
   - 미완성 : 코드 Id 클릭시 상세 정보 보기, 랜덤인풋 생성기

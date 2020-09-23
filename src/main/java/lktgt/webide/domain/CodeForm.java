@@ -9,6 +9,7 @@ public class CodeForm {
     private List<Long> kmax;
     private List<Long> rangemin;
     private List<Long> rangemax;
+    private boolean randominput;
 
     public String getLanguage() {
         return Language;
@@ -56,5 +57,13 @@ public class CodeForm {
 
     public void setRangemax(List<Long> rangemax) {
         this.rangemax = rangemax;
+    }
+
+    public boolean isRandominput() {
+        return randominput;
+    }
+
+    public void setRandominput(boolean randominput) {
+        this.randominput = randominput;
     }
 }

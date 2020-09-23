@@ -1,5 +1,5 @@
 # Web IDE 기능을 갖춘 Blog Project
-- 회원가입  
+## 회원가입  
   - 처리 :  
     - input : form으로 감싼 input들을 name과 매칭시켜 post로 전달하면 Controller에서 Mapping하여 가져올 수 있다.  
     
@@ -51,7 +51,7 @@
     
   
   - 완성 : pw 암호화, id 중복 체크
-- 로그인
+## 로그인
   - 처리 :
     - 권한 부여 : Spring SecurityConfig에서 제공하는 UserDetails를 implements하여 loadUserByUsername을 작성한다. 
     Repository의 Entity Manager를 이용하여 DB에서 이름을 검색하여 해당 User의 정보를 가져온다. Optional<T>로 감싸주었는데 이는 NULL exception을 방지하기 위해서다.
@@ -63,10 +63,10 @@
   - 완성 : DB에서 아이디 체크 , 권한 부여  
   - 미완성 : Remeber 체크박스
   
-- 로그아웃
+## 로그아웃
   - 완성 : 로그아웃
 
-- IDE
+## IDE
   - 처리 :
     - 서버에 코드 post : 회원가입 때와 같이 @Postmapping으로 가져오는데, 추가로 Spring Security의 Principal을 이용하여 
     로그인한 username까지 알아온다. Code는 username과 함께 DB에 저장된다.  
@@ -105,14 +105,22 @@
       로 windows cmd 실행 + 컴파일 옵션을 설정하여 컴파일 할 수 있게 한다.  
     - 코드 실행 결과 보기 : 
       기능의 내 코드를 누르면 DB에서 code table에서 username으로 검색하여 List를 반환하여 thymeleaf의 each를 이용하여 결과를 display한다.  
-    - 랜덤인풋 생성기 :  
-      `IDEController`의 IDESubmit에서 Codeform으로 input값들을 받아온다. html상에서 같은 name을 가지고 있다면 Codeform의 List로 모두 들어가게 된다.
+   - 랜덤인풋 생성기 :  
+     - `IDEController`의 IDESubmit에서 Codeform으로 input값들을 받아온다. html상에서 같은 name을 가지고 있다면 Codeform의 List로 모두 들어가게 된다.  
+     
+     - `IDEController`에서 codeForm에 Randominput이 체크되어 있는지 확인한다. 만약 체크되지 않았으면 코드를 그대로 exec에 넣어 실행한다.  
+     Randominput이 체크되어 있다면 `CodeService`의 `getCstyleCode(codeForm)`으로 C++를 이용하여 랜덤인풋 Generator를 만들 프로그램의 코드를 작성한다.  
+     **StringBuilder**를 이용하여 for문을 돌려 front에서 받은 Randominput 길이만큼 `randomTemplate(kmin[i],kmax[i],rangemin[i],rangemax[i])`를 호출한다.  
+     `randomTemplate`는 C++의 **random** 라이브러리를 이용하여 랜덤한 숫자를 생성할 수 있도록 하는 C++ 코드를 작성해 준다.  
+     Loop가 끝난 후 **StringBuilder**를 `code.setCode(codeBuilder.toString())`으로 코드로 바꾸고 exec를 돌린다.  
+
       
   - 완성 : Code 컴파일, 실행, 결과 DB에 저장, 코드 결과 보기
-  - 미완성 : 코드 Id 클릭시 상세 정보 보기, 랜덤인풋 생성기
+  - 미완성 : 코드 Id 클릭시 상세 정보 보기, 랜덤인풋 생성 후 cmd에서 Redirection 필요
       
     
 #----------------------
 - Todo:
   - IDE 
-    - 인풋 동적으로 추가하고 list로 서버에 받아오는것까지 성공, 여러가지 validation 필요할듯
+    - 랜덤인풋 생성기 C++ 스타일로 바꿔 실행까지 성공, 그 파일을 실행하여 txt파일로 저장하고 cmd에서 redirection 필요
+    - kmin,kmax,rangemin,rangemax의 bound 필요할듯

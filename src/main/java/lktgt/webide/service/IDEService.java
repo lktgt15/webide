@@ -19,13 +19,19 @@ public class IDEService {
         this.codeService = codeService;
     }
 
+    /*
+    Compile and Exec
+     */
     @Async("threadPoolTaskExecutor")
-    public void exec(Code code) throws IOException {
+    public String exec(Code code,String filename, boolean isRandomGenerator, boolean userRandomGenerator) throws IOException {
 
-        File file = ResourceUtils.getFile("classpath:static/code/Main.cc");
+        filename = "classpath:static/code/"+filename;
+        File file = ResourceUtils.getFile(filename);
         String path = file.getPath();
 
         String beforeCode = code.getCode();
+        System.out.println(code.getCode());
+
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
         bufferedWriter.write(beforeCode);
         bufferedWriter.close();
@@ -41,7 +47,14 @@ public class IDEService {
 
         boolean success = false;
 
-        String[] array = cmdStringList("g++ "+path+" -o Main -O2 -Wall -lm -static -std=gnu++17");
+        String[] array = null;
+
+        array = cmdStringList("g++ "+path+" -o Main -O2 -Wall -lm -static -std=gnu++17");
+
+
+        /*
+        ====================↓ Compile =======================
+         */
 
         try {
             process = runtime.exec(array);
@@ -91,9 +104,15 @@ public class IDEService {
             }
         }
         if(success == false) {
-            codeService.join(code);
-            return;
+            if(isRandomGenerator == false) codeService.join(code);
+            return "Error";
         }
+
+        /*
+        ====================↑ Compile ===================
+
+        ====================↓ Exec ======================
+         */
 
         array = cmdStringList("Main.exe");
 
@@ -147,7 +166,13 @@ public class IDEService {
                 e.printStackTrace();
             }
         }
-        codeService.join(code);
+
+        /*
+        ==================↑ Exec =================
+         */
+
+        if(isRandomGenerator == false) codeService.join(code);
+        return code.getResult();
     }
 
     private String[] cmdStringList(String cmd){

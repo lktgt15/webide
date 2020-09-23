@@ -1,8 +1,8 @@
 $('#addformbtn').on('click',function(){
-    var rangeminv = document.getElementById("rangemin").value*1;
-    var rangemaxv = document.getElementById("rangemax").value*1;
-    var kminv = document.getElementById("kmin").value*1;
-    var kmaxv = document.getElementById("kmax").value*1;
+    var rangeminv = document.getElementById("addrangemin").value*1;
+    var rangemaxv = document.getElementById("addrangemax").value*1;
+    var kminv = document.getElementById("addkmin").value*1;
+    var kmaxv = document.getElementById("addkmax").value*1;
 
     var container = document.getElementById("addedForms");
 

@@ -35,12 +35,13 @@ public class IDEController {
         if(codeForm.isRandominput()){
 
             Code inputCode = codeService.getCstyleCode(codeForm);
-            IDEService.exec(inputCode,"RandomInputGen.cc",true,false);
-            IDEService.exec(code,"Main.cc",false,true);
+            String result = IDEService.exec(inputCode,"RandomInputGen.cc");
+            System.out.println(result);
+            if(result != "Error") IDEService.exec(code,"RandomMain.cc");
 
         }
         else{
-            IDEService.exec(code,"Main.cc",false,false);
+            IDEService.exec(code,"Main.cc");
         }
 
         return "redirect:/";

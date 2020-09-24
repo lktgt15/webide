@@ -22,11 +22,10 @@ public class IDEService {
     /*
     Compile and Exec
      */
-    @Async("threadPoolTaskExecutor")
-    public String exec(Code code,String filename, boolean isRandomGenerator, boolean userRandomGenerator) throws IOException {
+    public String exec(Code code,String filename) throws IOException {
 
-        filename = "classpath:static/code/"+filename;
-        File file = ResourceUtils.getFile(filename);
+        String filepath = "classpath:static/code/"+filename;
+        File file = ResourceUtils.getFile(filepath);
         String path = file.getPath();
 
         String beforeCode = code.getCode();
@@ -49,7 +48,9 @@ public class IDEService {
 
         String[] array = null;
 
-        array = cmdStringList("g++ "+path+" -o Main -O2 -Wall -lm -static -std=gnu++17");
+        filename = filename.substring(0,filename.length()-3);
+
+        array = cmdStringList("g++ "+path+" -o "+filename+" -O2 -Wall -lm -static -std=gnu++17");
 
 
         /*
@@ -104,7 +105,7 @@ public class IDEService {
             }
         }
         if(success == false) {
-            if(isRandomGenerator == false) codeService.join(code);
+            codeService.join(code);
             return "Error";
         }
 
@@ -114,7 +115,16 @@ public class IDEService {
         ====================↓ Exec ======================
          */
 
-        array = cmdStringList("Main.exe");
+        System.out.println("중간 filename:"+filename);
+        if(filename.equals("RandomMain")) {
+            filepath = "build/resources/main/static/code/RandomInputGen.txt";
+            System.out.println(filepath);
+            array = cmdStringList(filename+".exe < "+filepath);
+        }
+        else {
+            System.out.println("else");
+            array = cmdStringList(filename+".exe");
+        }
 
         try {
             process = runtime.exec(array);
@@ -146,7 +156,7 @@ public class IDEService {
             if (!(erroroutput.toString().isEmpty())) {
                 System.out.println("Error");
                 System.out.println(erroroutput.toString());
-                code.setResult(successoutput.toString());
+                code.setResult(erroroutput.toString());
             }
 
         } catch (InterruptedException e) {
@@ -171,7 +181,19 @@ public class IDEService {
         ==================↑ Exec =================
          */
 
-        if(isRandomGenerator == false) codeService.join(code);
+        System.out.println("filename:"+filename);
+        if(filename.equals("RandomInputGen")) {
+            System.out.println("Randominput을 txt파일로 저장");
+            filepath = "classpath:static/code/RandomInputGen.txt";
+            file = ResourceUtils.getFile(filepath);
+
+            bufferedWriter = new BufferedWriter(new FileWriter(file));
+            bufferedWriter.write(code.getResult());
+            bufferedWriter.close();
+        }
+        else{
+            codeService.join(code);
+        }
         return code.getResult();
     }
 

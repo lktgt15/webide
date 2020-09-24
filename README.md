@@ -112,15 +112,16 @@
      Randominput이 체크되어 있다면 `CodeService`의 `getCstyleCode(codeForm)`으로 C++를 이용하여 랜덤인풋 Generator를 만들 프로그램의 코드를 작성한다.  
      **StringBuilder**를 이용하여 for문을 돌려 front에서 받은 Randominput 길이만큼 `randomTemplate(kmin[i],kmax[i],rangemin[i],rangemax[i])`를 호출한다.  
      `randomTemplate`는 C++의 **random** 라이브러리를 이용하여 랜덤한 숫자를 생성할 수 있도록 하는 C++ 코드를 작성해 준다.  
-     Loop가 끝난 후 **StringBuilder**를 `code.setCode(codeBuilder.toString())`으로 코드로 바꾸고 exec를 돌린다.  
-
+     Loop가 끝난 후 **RandomInputGen.txt**파일로 classpath에 결과를 저장한다.  
+     이후 input이 없는 파일처럼 실행하고 실행할 때만 `< "build/resources/main/static/code/RandomInputGen.txt"`로 위에서 만든 txt파일을 Redirection으로 인풋을 주었다.  
+     
       
-  - 완성 : Code 컴파일, 실행, 결과 DB에 저장, 코드 결과 보기
-  - 미완성 : 코드 Id 클릭시 상세 정보 보기, 랜덤인풋 생성 후 cmd에서 Redirection 필요
+  - 완성 : Code 컴파일, 실행, 결과 DB에 저장, 코드 결과 보기, 랜덤인풋 Redirection
+  - 미완성 : 코드 Id 클릭시 상세 정보 보기
       
     
 #----------------------
 - Todo:
   - IDE 
-    - 랜덤인풋 생성기 C++ 스타일로 바꿔 실행까지 성공, 그 파일을 실행하여 txt파일로 저장하고 cmd에서 redirection 필요
+    - 전체적인 코드 Refactor 필요할듯, 이걸 최우선으로
     - kmin,kmax,rangemin,rangemax의 bound 필요할듯

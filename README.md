@@ -123,5 +123,6 @@
 #----------------------
 - Todo:
   - IDE 
-    - 전체적인 코드 Refactor 필요할듯, 이걸 최우선으로
-    - kmin,kmax,rangemin,rangemax의 bound 필요할듯
+    - 전체적인 코드 Refactor 필요할듯, 이걸 최우선으로  
+    - 원래는 IDE에서 코드를 실행할 때 `Trheadpool`을 실행하였지만 동기화문제때문에 사용하지 않는중, 이걸 두번째로
+    - kmin,kmax,rangemin,rangemax의 bound 필요할듯  

@@ -1,0 +1,21 @@
+package lktgt.webide.service;
+
+import lktgt.webide.domain.Posted;
+import lktgt.webide.repository.JpaBoardRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class BoardService {
+
+    private final JpaBoardRepository jpaBoardRepository;
+
+    public BoardService(JpaBoardRepository jpaBoardRepository) {
+        this.jpaBoardRepository = jpaBoardRepository;
+    }
+
+    public List<Posted> getList(){
+        return jpaBoardRepository.findAll();
+    }
+}

@@ -1,15 +1,12 @@
 package lktgt.webide.domain;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.springframework.ui.Model;
-import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class Code {
+public class Posted {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,23 +14,12 @@ public class Code {
     @Column(name = "time") @CreationTimestamp
     private Date time;
 
-    @Column(length = 100000)
-    private String code;
+    @Column(length = 10000)
+    private String contents;
 
-    private String language;
     private String name;
+    private String title;
 
-    @Column(length = 100000)
-    private String result;
-
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public Long getId() {
         return id;
@@ -43,12 +29,12 @@ public class Code {
         this.id = id;
     }
 
-    public String getLanguage() {
-        return language;
+    public String getContents() {
+        return contents;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setContents(String contents) {
+        this.contents = contents;
     }
 
     public String getName() {
@@ -59,12 +45,12 @@ public class Code {
         this.name = name;
     }
 
-    public String getResult() {
-        return result;
+    public String getTitle() {
+        return title;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Date getTime() {

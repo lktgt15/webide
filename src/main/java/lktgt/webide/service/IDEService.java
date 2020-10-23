@@ -1,6 +1,7 @@
 package lktgt.webide.service;
 
 import lktgt.webide.domain.Code;
+import lktgt.webide.domain.CodeForm;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
@@ -19,10 +20,33 @@ public class IDEService {
         this.codeService = codeService;
     }
 
+    @Async("threadPoolTaskExecutor")
+    public String execThread(CodeForm codeForm, Code code, boolean isRandominput) throws IOException {
+        String ret = null;
+
+        try {
+            if (isRandominput) {
+                Code inputCode = codeService.getCstyleCode(codeForm);
+                String result = this.exec(inputCode, "RandomInputGen.cc");
+                System.out.println(result);
+                if (result != "Error") {
+                    ret = this.exec(code, "RandomMain.cc");
+                }
+                else ret = "Error";
+            } else {
+                ret = this.exec(code, "Main.cc");
+            }
+        }catch (IOException e){
+            ret = e.getMessage();
+        }finally {
+            return ret;
+        }
+    }
+
     /*
     Compile and Exec
      */
-    public String exec(Code code,String filename) throws IOException {
+    private String exec(Code code,String filename) throws IOException {
 
         String filepath = "classpath:static/code/"+filename;
         File file = ResourceUtils.getFile(filepath);
@@ -85,7 +109,7 @@ public class IDEService {
             if (!(erroroutput.toString().isEmpty())) {
                 System.out.println("Error");
                 System.out.println(erroroutput.toString());
-                int idx = erroroutput.toString().indexOf("error");
+                int idx = erroroutput.toString().indexOf(".cc:");
                 code.setResult(erroroutput.toString().substring(idx));
             }
 
@@ -105,7 +129,6 @@ public class IDEService {
             }
         }
         if(success == false) {
-            codeService.join(code);
             return "Error";
         }
 

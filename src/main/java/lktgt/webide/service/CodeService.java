@@ -27,7 +27,7 @@ public class CodeService {
     }
 
     public Code findCodeById(Long id){
-        Optional<Code> code = jpaCodeRepository.findCodeById(id);
+        Optional<Code> code = jpaCodeRepository.findById(id);
         return code.get();
     }
 
@@ -39,10 +39,6 @@ public class CodeService {
     public Code getCstyleCode(CodeForm codeForm) throws FileNotFoundException {
         Code code = new Code();
         code.setLanguage("C++17");
-
-        String filename = "classpath:static/code/RandomInputGen.cc";
-        File file = ResourceUtils.getFile(filename);
-        String path = file.getPath();
 
         StringBuilder codeBuilder = new StringBuilder();
         codeBuilder.append("#include <cstdio>\n" +

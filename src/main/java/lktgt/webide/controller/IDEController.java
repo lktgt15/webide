@@ -27,22 +27,13 @@ public class IDEController {
 
     @PostMapping("/IDE") // Code를 받음
     public String IDESubmit(Principal principal, CodeForm codeForm) throws IOException {
+
         Code code = new Code();
         code.setCode(codeForm.getCode());
         code.setLanguage(codeForm.getLanguage());
         code.setName(principal.getName());
 
-        if(codeForm.isRandominput()){
-
-            Code inputCode = codeService.getCstyleCode(codeForm);
-            String result = IDEService.exec(inputCode,"RandomInputGen.cc");
-            System.out.println(result);
-            if(result != "Error") IDEService.exec(code,"RandomMain.cc");
-
-        }
-        else{
-            IDEService.exec(code,"Main.cc");
-        }
+        IDEService.execThread(codeForm,code,codeForm.isRandominput());
 
         return "redirect:/";
     }

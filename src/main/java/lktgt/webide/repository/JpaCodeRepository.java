@@ -7,13 +7,15 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.servlet.Servlet;
+import javax.servlet.http.HttpServlet;
 import java.util.List;
 import java.util.Optional;
+
 
 @Transactional
 @Repository
 public class JpaCodeRepository implements CodeRepository{
-
     private final EntityManager em;
 
     @Autowired
@@ -28,7 +30,7 @@ public class JpaCodeRepository implements CodeRepository{
     }
 
     @Override
-    public Optional<Code> findCodeById(Long id) {
+    public Optional<Code> findById(Long id) {
         Code code = em.find(Code.class, id);
         return Optional.ofNullable(code);
     }

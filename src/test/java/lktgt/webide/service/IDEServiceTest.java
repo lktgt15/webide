@@ -4,12 +4,14 @@ import lktgt.webide.domain.Code;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.init.ResourceReader;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 class IDEServiceTest {
 
     @Autowired

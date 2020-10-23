@@ -14,26 +14,26 @@
 <th:block th:insert="fragments/layout.html :: th-login"></th:block>
 <th:block th:insert="fragments/layout.html :: th-navbar"></th:block>
 <!-- ---------------------------------------- [edit] ---------------------------------------- -->
-<div class="container">
-    <table class="table">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">언어</th>
-            <th scope="col">결과</th>
-            <th scope="col">시간</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="code : ${codeList}">
-            <td><a th:href="@{/code(id=${code.id})}" th:text="${code.id}"></a></td>
-            <td th:text="${code.language}"></td>
-            <td th:text="${code.result}"></td>
-            <td th:text="${code.time}"></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<table class="table table-sm table-hover">
+    <thead>
+    <tr>
+        <th scope="col">번호</th>
+        <th scope="col">제목</th>
+        <th scope="col">글쓴이</th>
+        <th scope="col">작성일</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="posted : ${postedList}">
+        <th scpoe="row" th:text="${posted.id}"></th>
+        <td th:text="${posted.title}"></td>
+        <td th:text="${posted.name}"></td>
+        <td th:text="${posted.time}"></td>
+    </tr>
+    </tbody>
+</table>
+<button type="button" class="btn btn-outline-primary"><a th:href="@{/board/post}">글쓰기</a></button>
+
 
 
 

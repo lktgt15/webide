@@ -114,15 +114,20 @@
      `randomTemplate`는 C++의 **random** 라이브러리를 이용하여 랜덤한 숫자를 생성할 수 있도록 하는 C++ 코드를 작성해 준다.  
      Loop가 끝난 후 **RandomInputGen.txt**파일로 classpath에 결과를 저장한다.  
      이후 input이 없는 파일처럼 실행하고 실행할 때만 `< "build/resources/main/static/code/RandomInputGen.txt"`로 위에서 만든 txt파일을 Redirection으로 인풋을 주었다.  
+   - Threadpool : 
+     - 코드 컴파일-실행을 Threadpool을 이용하여 서버 메인 동작은 계속 돌아가도록 했다.  
+     Threadpool은 `@Async(Threadpool이름)` 으로 사용할 수 있고, Threadpool 설정은 `@EnableAsync`로 AsyncConfiguration을 만들어 설정할 수 있다.  
+       
      
-      
   - 완성 : Code 컴파일, 실행, 결과 DB에 저장, 코드 결과 보기, 랜덤인풋 Redirection
   - 미완성 : 코드 Id 클릭시 상세 정보 보기
       
-    
+## 게시판
+  - 완성 : 글목록  
+  - 미완성 : 페이지네이션, 권한, 글쓰기  
+  
 #----------------------
 - Todo:
   - IDE 
     - 전체적인 코드 Refactor 필요할듯, 이걸 최우선으로  
-    - 원래는 IDE에서 코드를 실행할 때 `Trheadpool`을 실행하였지만 동기화문제때문에 사용하지 않는중, 이걸 두번째로
     - kmin,kmax,rangemin,rangemax의 bound 필요할듯  

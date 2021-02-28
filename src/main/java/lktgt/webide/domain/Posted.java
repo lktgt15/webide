@@ -14,11 +14,12 @@ public class Posted {
     @Column(name = "time") @CreationTimestamp
     private Date time;
 
-    @Column(length = 10000)
+    @Column(length = 100000)
     private String contents;
 
     private String name;
     private String title;
+    private String category;
 
 
     public Long getId() {
@@ -59,5 +60,13 @@ public class Posted {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

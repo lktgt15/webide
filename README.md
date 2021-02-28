@@ -123,11 +123,30 @@
   - 미완성 : 코드 Id 클릭시 상세 정보 보기
       
 ## 게시판
-  - 완성 : 글목록  
-  - 미완성 : 페이지네이션, 권한, 글쓰기  
+  - 처리 :  
+    - 글쓰기 : `/board/post`에서 **category**, **title**, **contents**를 입력한 것을 *BoardController*에서 `@PostMapping`으로 가져온다.  
+    ```java
+    @PostMapping("/board/post")
+    public String postSubmit(Principal principal, PostedForm postedForm){
+        Posted posted = new Posted();
+        posted.setCategory(postedForm.getCategory());
+        posted.setContents(postedForm.getContents());
+        posted.setTitle(postedForm.getTitle());
+        posted.setName(principal.getName());
+        System.out.println(posted.getCategory());
+
+        boardService.join(posted);
+
+        return "redirect:/";
+    }
+    ```   
+    `postedForm`을 인자로 줘서 form에서 **name**과 매칭시켜 가져오고, 이를 게시글 Entity (posted)에 set한다.  
+    `boardService`는 `join(posted)` 메소드를 통해 `jpaBoardRepository`를 이용하여 DB에 저장한다.
+    
+  - 완성 : 글목록, 글쓰기  
+  - 미완성 : 페이지네이션  
   
 #----------------------
 - Todo:
-  - IDE 
-    - 전체적인 코드 Refactor 필요할듯, 이걸 최우선으로  
-    - kmin,kmax,rangemin,rangemax의 bound 필요할듯  
+    1. 게시판 수정,삭제
+    

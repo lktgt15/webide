@@ -2,11 +2,13 @@ package lktgt.webide.repository;
 
 import lktgt.webide.domain.Posted;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
+@Transactional
 @Repository
 public class JpaBoardRepository implements BoardRepository{
 

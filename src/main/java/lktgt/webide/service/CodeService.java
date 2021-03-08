@@ -36,7 +36,7 @@ public class CodeService {
         return result;
     }
 
-    public Code getCstyleCode(CodeForm codeForm) throws FileNotFoundException {
+    public Code getCstyleCode(CodeForm codeForm) {
         Code code = new Code();
         code.setLanguage("C++17");
 

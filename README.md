@@ -89,15 +89,29 @@
       Runtime runtime = Runtime.getRuntime();
       Process process = null;
         
-      StringBuffer successoutput = new StringBuffer();
-      StringBuffer erroroutput = new StringBuffer();
+      StringBuilder successoutput = new StringBuilder();
+      StringBuilder erroroutput = new StringBuilder();
       BufferedReader successreader = null;
       BufferedReader errorreader = null;
       String msg = "";
       ```
       Runtime을 이용하여 JVM이 작동하는 운영체제의 인터페이스를 사용할 준비를 한다.  
       사용할 process도 준비한다. BufferedReader로 process의 Inputstream과 Errorstream 을 읽을 준비를 한다.  
-      process.getInputStream()과 getErrorStream()에서 BufferedReader로 받아온 것을 StringBuffer에 add할 것이다.  
+      process.getInputStream()과 getErrorStream()에서 BufferedReader로 받아온 것을 StringBuilder에 add할 것이다.  
+      여기서 멀티쓰레드 환경이지만 StringBuffer가 아닌 StringBuilder를 이용하였는데 어차피 쓰레드마다 새로운 StringBuilder를 쓰기 때문에 synchronized가 필요 없기 때문이다.  
+      
+      ```java
+      if(!process.waitFor(2,TimeUnit.SECONDS)){
+          System.out.println("time out");
+          process.destroy();
+          System.out.println("return");
+          return "error";
+      }
+      ```
+      process가 무한 대기 or 반복에 걸릴 경우를 대비하여 `process.waitFor(_time, TimeUnit)`을 준다.  
+      `process.waitFor(_time, TimeUnit)`은 time*TimeUnit만큼 대기하게되는 메소드이다.  
+      만약 이 시간 내에 프로세스가 종료되지 않는다면 false, 종료되면 true를 리턴한다.  
+      false를 리턴할 경우 코드에 문제가 있다고 판단하여 process를 강제로 종료시킨다.  
       
       ```java
       String[] array = cmdStringList("g++ "+path+" -o Main -O2 -Wall -lm -static -std=gnu++17");

@@ -9,6 +9,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class IDEService {
@@ -61,8 +62,8 @@ public class IDEService {
         Runtime runtime = Runtime.getRuntime();
         Process process = null;
 
-        StringBuffer successoutput = new StringBuffer();
-        StringBuffer erroroutput = new StringBuffer();
+        StringBuilder successoutput = new StringBuilder();
+        StringBuilder erroroutput = new StringBuilder();
         BufferedReader successreader = null;
         BufferedReader errorreader = null;
         String msg = "";
@@ -73,7 +74,7 @@ public class IDEService {
 
         filename = filename.substring(0,filename.length()-3);
 
-        array = cmdStringList("g++ "+path+" -o "+filename+" -O2 -Wall -lm -static -std=gnu++17");
+        array = cmdStringList("g++ "+path+" -o "+filename+" -O2 -Wall -lm -static -std=gnu++17",true);
 
 
         /*
@@ -82,6 +83,9 @@ public class IDEService {
 
         try {
             process = runtime.exec(array);
+
+
+            process.waitFor();
 
             successreader = new BufferedReader(new InputStreamReader(process.getInputStream(), "EUC-KR"));
             while ((msg = successreader.readLine()) != null) {
@@ -94,7 +98,6 @@ public class IDEService {
                 erroroutput.append(msg + System.getProperty("line.separator"));
             }
 
-            process.waitFor();
 
             if (process.exitValue() == 0) {
                 System.out.println("컴파일 성공");
@@ -120,6 +123,7 @@ public class IDEService {
             e.printStackTrace();
         } finally {
             try{
+                System.out.println(process.pid());
                 process.destroy();
                 if(successreader != null) successreader.close();
                 if(errorreader != null) errorreader.close();
@@ -141,15 +145,23 @@ public class IDEService {
         if(filename.equals("RandomMain")) {
             filepath = "build/resources/main/static/code/RandomInputGen.txt";
             System.out.println(filepath);
-            array = cmdStringList(filename+".exe < "+filepath);
+            array = cmdStringList(filename+".exe < "+filepath,false);
         }
         else {
             System.out.println("else");
-            array = cmdStringList(filename+".exe");
+            array = cmdStringList(filename+".exe",false);
         }
 
         try {
             process = runtime.exec(array);
+
+
+            if(!process.waitFor(4,TimeUnit.SECONDS)){
+                System.out.println("time out");
+                process.destroy();
+                System.out.println("return");
+                return "error";
+            }
 
             successreader = new BufferedReader(new InputStreamReader(process.getInputStream(), "EUC-KR"));
             while ((msg = successreader.readLine()) != null) {
@@ -162,7 +174,6 @@ public class IDEService {
                 erroroutput.append(msg + System.getProperty("line.separator"));
             }
 
-            process.waitFor();
 
             if (process.exitValue() == 0) {
                 System.out.println("실행 성공");
@@ -219,10 +230,12 @@ public class IDEService {
         return code.getResult();
     }
 
-    private String[] cmdStringList(String cmd){
+    private String[] cmdStringList(String cmd,boolean compile){
         List<String> cmdList = new ArrayList<String>();
-        cmdList.add("cmd");
-        cmdList.add("/c");
+        if(compile) {
+            cmdList.add("cmd");
+            cmdList.add("/c");
+        }
         cmdList.add(cmd);
 
         return cmdList.toArray(new String[cmdList.size()]);

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
@@ -46,5 +47,10 @@ public class BoardController {
         boardService.join(posted);
 
         return "redirect:/";
+    }
+    @GetMapping("/board")
+    public String code(@RequestParam(value="id") Long id, Model model){
+//        model.addAttribute("code",boardService.findPostedById(id));
+        return "board/view";
     }
 }

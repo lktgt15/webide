@@ -1,4 +1,19 @@
 # Web IDE 기능을 갖춘 Blog Project
+
+## Function
+
+### 회원가입
+![](./resources/Registration.gif)
+
+### IDE
+![](./resources/IDE.gif)
+
+### RandomInput적용한 IDE
+![](./resources/RandomInput.gif)
+
+- 예시는 40(kmin)-50(kmax)번 반복하여 1(rangemin)-100(rangemax) 사이의 숫자 생성
+
+
 ## 회원가입  
   - 처리 :  
     - input : form으로 감싼 input들을 name과 매칭시켜 post로 전달하면 Controller에서 Mapping하여 가져올 수 있다.  
@@ -48,9 +63,8 @@
     }
     ```
     예외 처리는 MemberController에서 `@ExceptionHandler`를 이용하여 model에 "이미 존재하는 회원입니다."라는 메세지를 담아서 view에 보여줄 수 있도록 한다.  
-    
-  
   - 완성 : pw 암호화, id 중복 체크
+
 ## 로그인
   - 처리 :
     - 권한 부여 : Spring SecurityConfig에서 제공하는 UserDetails를 implements하여 loadUserByUsername을 작성한다. 
@@ -109,7 +123,7 @@
       }
       ```
       process가 무한 대기 or 반복에 걸릴 경우를 대비하여 `process.waitFor(_time, TimeUnit)`을 준다.  
-      `process.waitFor(_time, TimeUnit)`은 time*TimeUnit만큼 대기하게되는 메소드이다.  
+      `process.waitFor(_time, TimeUnit)`은 time*TimeUnit*만큼 대기하게되는 메소드이다.  
       만약 이 시간 내에 프로세스가 종료되지 않는다면 false, 종료되면 true를 리턴한다.  
       false를 리턴할 경우 코드에 문제가 있다고 판단하여 process를 강제로 종료시킨다.  
       

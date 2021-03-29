@@ -62,6 +62,7 @@ public class CodeService {
         codeBuilder.append("}");
 
         code.setCode(codeBuilder.toString());
+        System.out.println("randomTemplateEnd");
 
         return code;
     }

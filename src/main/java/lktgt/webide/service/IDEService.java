@@ -23,12 +23,12 @@ public class IDEService {
     @Async("threadPoolTaskExecutor")
     public String execThread(CodeForm codeForm, Code code, boolean isRandominput) throws IOException {
         String ret = null;
-
+        System.out.println("execThread Start");
         try {
             if (isRandominput) {
                 Code inputCode = codeService.getCstyleCode(codeForm);
                 String result = this.exec(inputCode, "RandomInputGen.cc");
-                System.out.println(result);
+                System.out.println("result:"+result);
                 if (result != "Error") {
                     ret = this.exec(code, "RandomMain.cc");
                 }
@@ -37,8 +37,11 @@ public class IDEService {
                 ret = this.exec(code, "Main.cc");
             }
         }catch (IOException e){
+            System.out.println("execThread IOException");
+            System.out.println(e.getMessage());
             ret = e.getMessage();
         }finally {
+            System.out.println("execThread End");
             return ret;
         }
     }
@@ -53,7 +56,7 @@ public class IDEService {
         String path = file.getPath();
 
         String beforeCode = code.getCode();
-        System.out.println(code.getCode());
+        System.out.println("code:"+code.getCode());
 
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file));
         bufferedWriter.write(beforeCode);
@@ -145,7 +148,7 @@ public class IDEService {
         if(filename.equals("RandomMain")) {
             filepath = "build/resources/main/static/code/RandomInputGen.txt";
             System.out.println(filepath);
-            array = cmdStringList(filename+".exe < "+filepath,false);
+            array = cmdStringList(filename+".exe < "+filepath,true);
         }
         else {
             System.out.println("else");
@@ -158,6 +161,7 @@ public class IDEService {
 
             if(!process.waitFor(4,TimeUnit.SECONDS)){
                 System.out.println("time out");
+                System.out.println(process.pid());
                 process.destroy();
                 System.out.println("return");
                 return "error";
